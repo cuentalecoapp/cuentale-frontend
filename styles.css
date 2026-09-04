@@ -1,0 +1,236 @@
+:root {
+  --navy-900: #1B1747;
+  --navy-800: #26215C;
+  --navy-700: #3C3489;
+  --purple-500: #7F77DD;
+  --purple-100: #EEEDFE;
+  --teal-600: #0F6E56;
+  --teal-500: #1D9E75;
+  --teal-100: #E1F5EE;
+  --coral-600: #993C1D;
+  --coral-500: #D85A30;
+  --coral-100: #FAECE7;
+  --surface-0: #FFFFFF;
+  --surface-1: #F7F7FB;
+  --surface-2: #F0F0F8;
+  --border: #E4E4EF;
+  --text-primary: #1C1B2E;
+  --text-secondary: #57566E;
+  --text-muted: #8B8AA0;
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select {
+  font-family: inherit;
+  font-size: 15px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--purple-500);
+  outline-offset: 2px;
+}
+
+.vista { min-height: 100vh; }
+.vista-centrada {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ---------- Auth / crear negocio ---------- */
+.tarjeta-auth {
+  width: 100%;
+  max-width: 380px;
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+}
+
+.marca-app {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.marca-icono {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--navy-800);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+.marca-nombre { font-size: 18px; font-weight: 700; }
+.subtitulo { color: var(--text-secondary); font-size: 14px; margin: 0 0 22px; }
+
+.pestañas {
+  display: flex;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 20px;
+}
+.pestaña {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 9px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.pestaña.activa { background: var(--surface-0); color: var(--text-primary); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+
+.formulario { display: flex; flex-direction: column; gap: 6px; }
+.formulario label { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-top: 10px; }
+.formulario input, .formulario select {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--text-primary);
+}
+.formulario input:focus, .formulario select:focus { background: var(--surface-0); }
+.selector-color { padding: 4px; height: 44px; cursor: pointer; }
+
+.boton {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.05s ease, opacity 0.15s ease;
+}
+.boton:active { transform: scale(0.98); }
+.boton-primario { background: var(--navy-800); color: #fff; }
+.boton-primario:hover { background: var(--navy-900); }
+.boton-ancho { width: 100%; margin-top: 20px; }
+
+.mensaje-error {
+  background: var(--coral-100);
+  color: var(--coral-600);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 13px;
+  margin: 0 0 14px;
+}
+
+/* ---------- Dashboard ---------- */
+.panel { max-width: 460px; margin: 0 auto; padding: 24px 20px 80px; }
+
+.encabezado { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.encabezado-marca { display: flex; align-items: center; gap: 12px; }
+.avatar-negocio {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: var(--purple-500); color: var(--purple-100);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px;
+}
+.saludo { font-size: 12px; color: var(--text-muted); margin: 0; }
+.nombre-negocio { font-size: 17px; font-weight: 700; margin: 2px 0 0; }
+
+.boton-icono {
+  width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--surface-0); color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.boton-icono:hover { background: var(--surface-2); }
+
+.tarjeta-saldo {
+  background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.etiqueta-saldo { font-size: 13px; color: var(--purple-100); margin: 0 0 4px; opacity: 0.85; }
+.monto-saldo { font-family: var(--font-mono); font-size: 32px; font-weight: 500; margin: 0 0 14px; letter-spacing: -0.5px; }
+
+.barra-progreso { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.15); overflow: hidden; margin-bottom: 10px; }
+.barra-progreso-relleno { height: 100%; background: var(--teal-500); transition: width 0.4s ease; }
+
+.fila-totales { display: flex; gap: 18px; font-size: 13px; }
+.total-entrada { color: var(--teal-500); }
+.total-salida { color: #F0997B; }
+
+.rejilla-acciones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+.boton-ingreso { background: var(--teal-500); color: var(--teal-100); height: 48px; }
+.boton-ingreso:hover { background: var(--teal-600); }
+.boton-gasto { background: var(--coral-500); color: var(--coral-100); height: 48px; }
+.boton-gasto:hover { background: var(--coral-600); }
+
+.titulo-seccion { font-size: 13px; font-weight: 700; color: var(--text-secondary); margin: 0 0 10px; }
+.fila-titulo-seccion { display: flex; align-items: center; justify-content: space-between; }
+
+.fila-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.chip-categoria {
+  font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px;
+  background: var(--surface-2); color: var(--text-secondary);
+}
+
+.texto-vacio { font-size: 13px; color: var(--text-muted); background: var(--surface-2); border-radius: var(--radius-sm); padding: 16px; text-align: center; }
+
+.lista-movimientos { display: flex; flex-direction: column; gap: 8px; }
+.fila-movimiento {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface-0); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 12px;
+}
+.icono-movimiento {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-size: 16px;
+}
+.icono-movimiento.ingreso { background: var(--teal-100); }
+.icono-movimiento.gasto { background: var(--coral-100); }
+.detalle-movimiento { flex: 1; min-width: 0; }
+.desc-movimiento { font-size: 14px; font-weight: 600; margin: 0; }
+.fecha-movimiento { font-size: 12px; color: var(--text-muted); margin: 1px 0 0; }
+.monto-movimiento { font-family: var(--font-mono); font-size: 14px; font-weight: 600; white-space: nowrap; }
+.monto-movimiento.ingreso { color: var(--teal-600); }
+.monto-movimiento.gasto { color: var(--coral-600); }
+.btn-borrar {
+  border: none; background: none; color: var(--text-muted); cursor: pointer;
+  font-size: 16px; padding: 4px 6px; line-height: 1; flex-shrink: 0;
+}
+.btn-borrar:hover { color: var(--coral-600); }
+
+/* ---------- Panel lateral (agregar movimiento) ---------- */
+.fondo-panel {
+  position: fixed; inset: 0; background: rgba(20, 18, 50, 0.35);
+  z-index: 10;
+}
+.panel-lateral {
+  position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 380px;
+  background: var(--surface-0); z-index: 11; padding: 24px;
+  box-shadow: -8px 0 24px rgba(0,0,0,0.12);
+  overflow-y: auto;
+}
+.panel-lateral-encabezado { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.panel-lateral-encabezado h2 { font-size: 18px; margin: 0; }
+
+@media (max-width: 460px) {
+  .panel-lateral { max-width: 100%; }
+}
