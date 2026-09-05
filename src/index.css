@@ -275,3 +275,31 @@ input {
     animation: none;
   }
 }
+
+/* ===================================================================
+   MODO OSCURO — se activa cuando el body tiene la clase "tema-oscuro"
+   Cambia fondos y textos; los colores de marca (naranja/verde) se mantienen.
+   =================================================================== */
+body.tema-oscuro {
+  --surface-0: #1E1B18;
+  --surface-1: #141210;
+  --surface-2: #26221E;
+  --border: #3A342E;
+  --border-strong: #4A423A;
+  --text: #F2EDE6;
+  --text-secondary: #B8AFA4;
+  --text-muted: #8A8074;
+
+  --naranja-suave: #3A2419;
+  --amarillo-suave: #3A3016;
+  --verde-suave: #12362C;
+  --brand-light: #3A2419;
+  --ingreso-bg: #12362C;
+  --gasto-bg: #3A1E18;
+
+  background: #141210;
+}
+
+body.tema-oscuro {
+  background-color: #141210;
+}
