@@ -114,7 +114,7 @@ export default function Dashboard({ negocio, onCerrarSesion, selectorNegocio }) 
             padding: "0 12px",
             borderRadius: 16,
             border: "1.5px solid var(--verde)",
-            background: "#fff",
+            background: "var(--surface-0)",
             color: "var(--verde)",
             fontSize: 12,
             fontWeight: 700,
@@ -164,7 +164,7 @@ export default function Dashboard({ negocio, onCerrarSesion, selectorNegocio }) 
               height: 52,
               borderRadius: 14,
               border: "none",
-              background: "#fff",
+              background: "var(--surface-0)",
               color: "var(--gasto)",
               boxShadow: "0 4px 14px rgba(0,0,0,0.10)",
             }}
@@ -319,7 +319,7 @@ export default function Dashboard({ negocio, onCerrarSesion, selectorNegocio }) 
                 fontWeight: 600,
                 borderRadius: "var(--radius-md)",
                 border: "1.5px solid #2A2320",
-                background: "#fff",
+                background: "var(--surface-0)",
                 color: "var(--text)",
                 boxShadow: "0 4px 14px rgba(0,0,0,0.10)",
               }}
