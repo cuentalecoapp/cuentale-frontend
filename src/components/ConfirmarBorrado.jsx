@@ -37,7 +37,7 @@ export default function ConfirmarBorrado({ mensaje, onConfirmar, onCancelar }) {
         style={{
           width: "100%",
           maxWidth: 340,
-          background: "#fff",
+          background: "var(--surface-0)",
           borderRadius: 24,
           padding: "1.75rem 1.5rem 1.5rem",
           textAlign: "center",
