@@ -70,7 +70,7 @@ export default function TransactionModal({ negocioId, tipo, onCerrar, onGuardado
         style={{
           width: "100%",
           maxWidth: 460,
-          background: "#fff",
+          background: "var(--surface-0)",
           borderRadius: "20px 20px 0 0",
           padding: "1.5rem",
           paddingBottom: "2rem",
