@@ -93,7 +93,7 @@ export default function ScanReceiptModal({ negocioId, onCerrar, onGuardado }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{ width: "100%", maxWidth: 460, maxHeight: "88vh", overflowY: "auto", background: "#fff", borderRadius: "20px 20px 0 0", padding: "1.5rem", paddingBottom: "2rem" }}
+        style={{ width: "100%", maxWidth: 460, maxHeight: "88vh", overflowY: "auto", background: "var(--surface-0)", borderRadius: "20px 20px 0 0", padding: "1.5rem", paddingBottom: "2rem" }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <h2 id="titulo-escaner" style={{ fontSize: 18, fontWeight: 700, margin: 0 }}>Escanear recibo</h2>
