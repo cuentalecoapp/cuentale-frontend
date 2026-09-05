@@ -147,8 +147,26 @@ export default function Login({ onEntrar }) {
               style={{ width: 18, height: 18, marginTop: 1, flexShrink: 0, accentColor: "var(--naranja)" }}
             />
             <span>
-              Acepto los <strong style={{ color: "var(--brand)" }}>Términos y Condiciones</strong> y la{" "}
-              <strong style={{ color: "var(--brand)" }}>Política de Tratamiento de Datos</strong>.
+              Acepto los{" "}
+              <a
+                href="https://cuentale-web.onrender.com/terminos.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--brand)", fontWeight: 700 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Términos y Condiciones
+              </a>{" "}
+              y la{" "}
+              <a
+                href="https://cuentale-web.onrender.com/datos.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--brand)", fontWeight: 700 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Política de Tratamiento de Datos
+              </a>.
             </span>
           </label>
         )}
