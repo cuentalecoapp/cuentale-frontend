@@ -105,7 +105,7 @@ export default function InvoiceModal({ negocioId, onCerrar, onGuardado }) {
           maxWidth: 460,
           maxHeight: "88vh",
           overflowY: "auto",
-          background: "#fff",
+          background: "var(--surface-0)",
           borderRadius: "20px 20px 0 0",
           padding: "1.5rem",
           paddingBottom: "2rem",
