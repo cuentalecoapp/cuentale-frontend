@@ -8,12 +8,41 @@ export default function Login({ onEntrar }) {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState(""); // confirmar contraseña
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
+  const [verPassword, setVerPassword] = useState(false); // mostrar/ocultar
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
+
+  // Valida que la contraseña sea fuerte (al menos 8 caracteres, con letra y número)
+  function validarPassword(pass) {
+    if (pass.length < 8) return "La contraseña debe tener al menos 8 caracteres.";
+    if (!/[a-zA-Z]/.test(pass)) return "La contraseña debe tener al menos una letra.";
+    if (!/[0-9]/.test(pass)) return "La contraseña debe tener al menos un número.";
+    return null;
+  }
 
   async function manejarEnvio(e) {
     e.preventDefault();
     setError("");
+
+    // Validaciones extra solo al registrarse
+    if (modo === "registro") {
+      const errorPass = validarPassword(password);
+      if (errorPass) {
+        setError(errorPass);
+        return;
+      }
+      if (password !== password2) {
+        setError("Las contraseñas no coinciden. Verifícalas.");
+        return;
+      }
+      if (!aceptaTerminos) {
+        setError("Debes aceptar los Términos y la Política de Datos para continuar.");
+        return;
+      }
+    }
+
     setCargando(true);
     try {
       const resultado =
@@ -30,6 +59,14 @@ export default function Login({ onEntrar }) {
     }
   }
 
+  function cambiarModo() {
+    setError("");
+    setPassword("");
+    setPassword2("");
+    setAceptaTerminos(false);
+    setModo(modo === "login" ? "registro" : "login");
+  }
+
   return (
     <div
       style={{
@@ -39,13 +76,11 @@ export default function Login({ onEntrar }) {
         justifyContent: "center",
         alignItems: "center",
         padding: "1.5rem",
-        // Foto de fondo con una capa oscura degradada encima para que se lea el formulario
         backgroundImage: `linear-gradient(to bottom, rgba(12,106,82,0.55), rgba(20,20,20,0.75)), url(${fondoLogin})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* Tarjeta blanca flotante con el formulario */}
       <div
         className="login-shell aparece"
         style={{
@@ -69,31 +104,54 @@ export default function Login({ onEntrar }) {
 
       <form onSubmit={manejarEnvio} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {modo === "registro" && (
-          <Campo
-            label="Tu nombre"
-            value={nombre}
-            onChange={setNombre}
-            type="text"
-            autoComplete="name"
-            required
-          />
+          <Campo label="Tu nombre" value={nombre} onChange={setNombre} type="text" autoComplete="name" required />
         )}
-        <Campo
-          label="Correo"
-          value={correo}
-          onChange={setCorreo}
-          type="email"
-          autoComplete="email"
-          required
-        />
-        <Campo
+        <Campo label="Correo" value={correo} onChange={setCorreo} type="email" autoComplete="email" required />
+
+        {/* Contraseña con ojito para mostrar/ocultar */}
+        <CampoPassword
           label="Contraseña"
           value={password}
           onChange={setPassword}
-          type="password"
+          ver={verPassword}
+          setVer={setVerPassword}
           autoComplete={modo === "login" ? "current-password" : "new-password"}
-          required
         />
+
+        {/* Confirmar contraseña (solo al registrarse) */}
+        {modo === "registro" && (
+          <CampoPassword
+            label="Confirmar contraseña"
+            value={password2}
+            onChange={setPassword2}
+            ver={verPassword}
+            setVer={setVerPassword}
+            autoComplete="new-password"
+          />
+        )}
+
+        {/* Pista de requisitos de contraseña al registrarse */}
+        {modo === "registro" && (
+          <p style={{ fontSize: 11.5, color: "var(--text-secondary)", margin: "-4px 0 0" }}>
+            Mínimo 8 caracteres, con al menos una letra y un número.
+          </p>
+        )}
+
+        {/* Casilla de términos (solo al registrarse) */}
+        {modo === "registro" && (
+          <label style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12.5, color: "var(--text)", cursor: "pointer", marginTop: 2 }}>
+            <input
+              type="checkbox"
+              checked={aceptaTerminos}
+              onChange={(e) => setAceptaTerminos(e.target.checked)}
+              style={{ width: 18, height: 18, marginTop: 1, flexShrink: 0, accentColor: "var(--naranja)" }}
+            />
+            <span>
+              Acepto los <strong style={{ color: "var(--brand)" }}>Términos y Condiciones</strong> y la{" "}
+              <strong style={{ color: "var(--brand)" }}>Política de Tratamiento de Datos</strong>.
+            </span>
+          </label>
+        )}
 
         {error && (
           <p role="alert" style={{ color: "var(--gasto)", fontSize: 13, margin: 0 }}>
@@ -122,10 +180,7 @@ export default function Login({ onEntrar }) {
       </form>
 
       <button
-        onClick={() => {
-          setError("");
-          setModo(modo === "login" ? "registro" : "login");
-        }}
+        onClick={cambiarModo}
         style={{
           background: "none",
           border: "none",
@@ -167,6 +222,58 @@ function Campo({ label, value, onChange, type, autoComplete, required }) {
           boxShadow: "0 4px 14px rgba(0,0,0,0.10)",
         }}
       />
+    </div>
+  );
+}
+
+// Campo de contraseña con botón de ojito para mostrar/ocultar
+function CampoPassword({ label, value, onChange, ver, setVer, autoComplete }) {
+  const id = `campo-${label.toLowerCase().replace(/\s+/g, "-")}`;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <label htmlFor={id} style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>
+        {label}
+      </label>
+      <div style={{ position: "relative" }}>
+        <input
+          id={id}
+          type={ver ? "text" : "password"}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          autoComplete={autoComplete}
+          required
+          style={{
+            height: 50,
+            width: "100%",
+            borderRadius: "var(--radius-md)",
+            border: "none",
+            padding: "0 48px 0 16px",
+            fontSize: 15,
+            background: "#fff",
+            boxShadow: "0 4px 14px rgba(0,0,0,0.10)",
+            boxSizing: "border-box",
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => setVer(!ver)}
+          aria-label={ver ? "Ocultar contraseña" : "Mostrar contraseña"}
+          style={{
+            position: "absolute",
+            right: 8,
+            top: "50%",
+            transform: "translateY(-50%)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: 20,
+            padding: 6,
+            lineHeight: 1,
+          }}
+        >
+          {ver ? "🙈" : "👁️"}
+        </button>
+      </div>
     </div>
   );
 }
