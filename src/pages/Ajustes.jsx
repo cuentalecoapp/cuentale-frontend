@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../api.js";
+import InterruptorTema from "../components/InterruptorTema.jsx";
 
 // Rubros comunes para que el emprendedor elija (conecta con la idea de cursos por área)
 const RUBROS = [
@@ -111,6 +112,9 @@ export default function Ajustes({ negocioId }) {
       <p style={{ fontSize: 13, color: "var(--text-secondary)", margin: "0 0 1.5rem" }}>
         Los datos de tu negocio aparecerán en tus reportes y facturas.
       </p>
+
+      {/* Interruptor de tema claro/oscuro */}
+      <InterruptorTema />
 
       <form onSubmit={guardar}>
         {/* Logo */}
