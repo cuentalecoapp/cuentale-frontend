@@ -20,7 +20,7 @@ function TooltipPersonalizado({ active, payload, label }) {
   return (
     <div
       style={{
-        background: "#fff",
+        background: "var(--surface-0)",
         border: "1px solid var(--border)",
         borderRadius: 10,
         padding: "8px 12px",
