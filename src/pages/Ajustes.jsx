@@ -100,7 +100,7 @@ export default function Ajustes({ negocioId }) {
     border: "none",
     padding: "0 14px",
     fontSize: 15,
-    background: "#fff",
+    background: "var(--surface-0)",
     boxShadow: "0 3px 10px rgba(0,0,0,0.08)",
     width: "100%",
   };
@@ -118,7 +118,7 @@ export default function Ajustes({ negocioId }) {
 
       <form onSubmit={guardar}>
         {/* Logo */}
-        <div style={{ background: "#fff", borderRadius: "var(--radius-lg)", padding: 18, marginBottom: 16, boxShadow: "0 6px 20px rgba(0,0,0,0.10)", textAlign: "center" }}>
+        <div style={{ background: "var(--surface-0)", borderRadius: "var(--radius-lg)", padding: 18, marginBottom: 16, boxShadow: "0 6px 20px rgba(0,0,0,0.10)", textAlign: "center" }}>
           <label style={estiloEtiqueta}>Logo de tu negocio</label>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
             <div style={{ width: 96, height: 96, borderRadius: 20, background: datos.logo ? "transparent" : "var(--surface-2)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", border: "2px solid var(--border)" }}>
@@ -141,7 +141,7 @@ export default function Ajustes({ negocioId }) {
         </div>
 
         {/* Datos del negocio */}
-        <div style={{ background: "#fff", borderRadius: "var(--radius-lg)", padding: 18, marginBottom: 16, boxShadow: "0 6px 20px rgba(0,0,0,0.10)", display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ background: "var(--surface-0)", borderRadius: "var(--radius-lg)", padding: 18, marginBottom: 16, boxShadow: "0 6px 20px rgba(0,0,0,0.10)", display: "flex", flexDirection: "column", gap: 14 }}>
           <div>
             <label style={estiloEtiqueta}>Nombre del negocio *</label>
             <input value={datos.nombre || ""} onChange={(e) => actualizar("nombre", e.target.value)} style={estiloCampo} placeholder="Ej: Pugliapizza" />
@@ -160,7 +160,7 @@ export default function Ajustes({ negocioId }) {
         </div>
 
         {/* Contacto */}
-        <div style={{ background: "#fff", borderRadius: "var(--radius-lg)", padding: 18, marginBottom: 16, boxShadow: "0 6px 20px rgba(0,0,0,0.10)", display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ background: "var(--surface-0)", borderRadius: "var(--radius-lg)", padding: 18, marginBottom: 16, boxShadow: "0 6px 20px rgba(0,0,0,0.10)", display: "flex", flexDirection: "column", gap: 14 }}>
           <p style={{ fontSize: 14, fontWeight: 700, margin: 0, color: "var(--text)" }}>Contacto y ubicación</p>
           <div>
             <label style={estiloEtiqueta}>Teléfono</label>
