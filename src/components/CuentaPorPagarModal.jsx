@@ -46,7 +46,7 @@ export default function CuentaPorPagarModal({ negocioId, onCerrar, onGuardado })
       style={{ position: "fixed", inset: 0, background: "rgba(22,20,58,0.45)", display: "flex", alignItems: "flex-end", justifyContent: "center", zIndex: 50 }}
       onClick={onCerrar}
     >
-      <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 460, background: "#fff", borderRadius: "20px 20px 0 0", padding: "1.5rem", paddingBottom: "2rem" }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 460, background: "var(--surface-0)", borderRadius: "20px 20px 0 0", padding: "1.5rem", paddingBottom: "2rem" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <h2 id="titulo-cuenta-pagar" style={{ fontSize: 18, fontWeight: 700, margin: 0 }}>Registrar deuda</h2>
           <button onClick={onCerrar} aria-label="Cerrar" style={{ background: "none", border: "none", width: 32, height: 32 }}>
