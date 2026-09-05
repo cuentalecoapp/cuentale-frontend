@@ -40,7 +40,7 @@ function SelectorNegocio({ negocios, negocioActual, onCambiar, onCrearNuevo }) {
             position: "absolute",
             top: "calc(100% + 6px)",
             left: 0,
-            background: "#fff",
+            background: "var(--surface-0)",
             border: "1px solid var(--border)",
             borderRadius: "var(--radius-sm)",
             boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
@@ -63,7 +63,7 @@ function SelectorNegocio({ negocios, negocioActual, onCambiar, onCrearNuevo }) {
                 textAlign: "left",
                 padding: "10px 14px",
                 border: "none",
-                background: n.id === negocioActual.id ? "var(--surface-1)" : "#fff",
+                background: n.id === negocioActual.id ? "var(--surface-1)" : "var(--surface-0)",
                 fontSize: 14,
               }}
             >
@@ -75,7 +75,7 @@ function SelectorNegocio({ negocios, negocioActual, onCambiar, onCrearNuevo }) {
               onCrearNuevo();
               setAbierto(false);
             }}
-            style={{ width: "100%", textAlign: "left", padding: "10px 14px", border: "none", borderTop: "1px solid var(--border)", background: "#fff", fontSize: 14, color: "var(--brand)" }}
+            style={{ width: "100%", textAlign: "left", padding: "10px 14px", border: "none", borderTop: "1px solid var(--border)", background: "var(--surface-0)", fontSize: 14, color: "var(--brand)" }}
           >
             <i className="ti ti-plus" style={{ fontSize: 14 }} /> Nuevo negocio
           </button>
@@ -229,7 +229,7 @@ export default function App() {
       <nav
         aria-label="Navegación principal"
         className="barra-navegacion"
-        style={{ display: "flex", justifyContent: "space-around", gap: 4, padding: "10px 12px", margin: "0 10px 10px", borderRadius: "var(--radius-lg)", background: "#fff", boxShadow: "0 6px 20px rgba(0,0,0,0.12)" }}
+        style={{ display: "flex", justifyContent: "space-around", gap: 4, padding: "10px 12px", margin: "0 10px 10px", borderRadius: "var(--radius-lg)", background: "var(--surface-0)", boxShadow: "0 6px 20px rgba(0,0,0,0.12)" }}
       >
         {SECCIONES.map((s) => {
           const activo = seccion === s.id;
