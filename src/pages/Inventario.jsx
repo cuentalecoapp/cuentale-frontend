@@ -44,7 +44,7 @@ function ProductoModal({ negocioId, onCerrar, onGuardado }) {
       style={{ position: "fixed", inset: 0, background: "rgba(22,20,58,0.45)", display: "flex", alignItems: "flex-end", justifyContent: "center", zIndex: 50 }}
       onClick={onCerrar}
     >
-      <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 460, background: "#fff", borderRadius: "20px 20px 0 0", padding: "1.5rem", paddingBottom: "2rem" }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 460, background: "var(--surface-0)", borderRadius: "20px 20px 0 0", padding: "1.5rem", paddingBottom: "2rem" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <h2 id="titulo-producto" style={{ fontSize: 18, fontWeight: 700, margin: 0 }}>Nuevo producto</h2>
           <button onClick={onCerrar} aria-label="Cerrar" style={{ background: "none", border: "none", width: 32, height: 32 }}>
@@ -180,7 +180,7 @@ export default function Inventario({ negocioId }) {
                       onClick={() => ajustar(p.id, -1)}
                       disabled={ajustando === p.id}
                       aria-label={`Quitar una unidad de ${p.nombre}`}
-                      style={{ width: 32, height: 32, borderRadius: 8, border: "1px solid var(--border)", background: "#fff" }}
+                      style={{ width: 32, height: 32, borderRadius: 8, border: "1px solid var(--border)", background: "var(--surface-0)" }}
                     >
                       −
                     </button>
@@ -188,7 +188,7 @@ export default function Inventario({ negocioId }) {
                       onClick={() => ajustar(p.id, 1)}
                       disabled={ajustando === p.id}
                       aria-label={`Agregar una unidad de ${p.nombre}`}
-                      style={{ width: 32, height: 32, borderRadius: 8, border: "1px solid var(--border)", background: "#fff" }}
+                      style={{ width: 32, height: 32, borderRadius: 8, border: "1px solid var(--border)", background: "var(--surface-0)" }}
                     >
                       +
                     </button>
