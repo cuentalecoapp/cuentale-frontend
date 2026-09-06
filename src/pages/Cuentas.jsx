@@ -3,6 +3,7 @@ import { api } from "../api.js";
 import InvoiceModal from "../components/InvoiceModal.jsx";
 import CuentaPorPagarModal from "../components/CuentaPorPagarModal.jsx";
 import ConfirmarBorrado from "../components/ConfirmarBorrado.jsx";
+import { imprimirFactura } from "../imprimirFactura.js";
 
 const formatoMoneda = new Intl.NumberFormat("es-CO", {
   style: "currency",
@@ -69,6 +70,19 @@ export default function Cuentas({ negocioId }) {
       await cargar();
     } catch (err) {
       setError(err.message);
+    } finally {
+      setProcesando(null);
+    }
+  }
+
+  // Trae el detalle completo de la factura (con logo y datos del negocio) y la abre para imprimir
+  async function imprimir(id) {
+    setProcesando(id);
+    try {
+      const detalle = await api.verFactura(negocioId, id);
+      imprimirFactura(detalle);
+    } catch (err) {
+      setError("No pudimos abrir la factura para imprimir.");
     } finally {
       setProcesando(null);
     }
@@ -159,6 +173,11 @@ export default function Cuentas({ negocioId }) {
                             {procesando === f.id ? "..." : "Marcar pagada"}
                           </button>
                         )}
+                        <button onClick={() => imprimir(f.id)} disabled={procesando === f.id} aria-label="Imprimir factura"
+                          title="Imprimir o descargar factura"
+                          style={{ width: 34, height: 34, borderRadius: 8, border: "none", background: "var(--brand-light)", color: "var(--brand)", flexShrink: 0 }}>
+                          <i className="ti ti-printer" style={{ fontSize: 15 }} />
+                        </button>
                         <button onClick={() => setBorrar({ tipo: "factura", id: f.id })} aria-label="Borrar factura"
                           style={{ width: 34, height: 34, borderRadius: 8, border: "none", background: "var(--gasto-bg)", color: "var(--gasto)", flexShrink: 0 }}>
                           <i className="ti ti-trash" style={{ fontSize: 15 }} />
