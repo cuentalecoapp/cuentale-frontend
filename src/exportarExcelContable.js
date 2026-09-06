@@ -18,7 +18,8 @@ function estadoLegible(estado) {
 }
 
 export function exportarExcelContable(datos) {
-  const { negocio, movimientos, facturas, cuentasPorPagar } = datos;
+  const { negocio, negocioInfo, movimientos, facturas, cuentasPorPagar } = datos;
+  const info = negocioInfo || {};
 
   const ingresos = movimientos.filter((m) => m.tipo === "ingreso");
   const gastos = movimientos.filter((m) => m.tipo === "gasto");
@@ -34,9 +35,20 @@ export function exportarExcelContable(datos) {
   // Construimos la hoja como una matriz de filas (AOA: array of arrays)
   const filas = [];
 
-  // Encabezado
-  filas.push([`Cuéntale — Reporte contable de ${negocio}`, "", "", "", "", ""]);
-  filas.push([`Generado el ${fechaLegible(new Date())}`, "", "", "", "", ""]);
+  // Encabezado con el nombre y los datos del negocio (para que salga con SU marca)
+  filas.push([negocio, "", "", "", "", ""]);
+  // Línea con NIT/cédula y teléfono si existen
+  const linea2 = [];
+  if (info.nit) linea2.push(`NIT/CC: ${info.nit}`);
+  if (info.telefono) linea2.push(`Tel: ${info.telefono}`);
+  if (linea2.length) filas.push([linea2.join("   ·   "), "", "", "", "", ""]);
+  // Línea con dirección, ciudad y correo si existen
+  const linea3 = [];
+  if (info.direccion) linea3.push(info.direccion);
+  if (info.ciudad) linea3.push(info.ciudad);
+  if (info.correo) linea3.push(info.correo);
+  if (linea3.length) filas.push([linea3.join("   ·   "), "", "", "", "", ""]);
+  filas.push(["Reporte contable · Generado el " + fechaLegible(new Date()), "", "", "", "", ""]);
   filas.push([]);
 
   // RESUMEN EJECUTIVO (panorama rápido para el contador)
