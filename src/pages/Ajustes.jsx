@@ -44,25 +44,50 @@ export default function Ajustes({ negocioId }) {
     setExito("");
   }
 
-  // Al subir un logo, lo convertimos a texto (base64) para guardarlo
+  // Al subir un logo, lo reducimos automáticamente a un tamaño óptimo y lo
+  // convertimos a texto (base64). Así siempre carga rápido y nunca falla por peso.
   function manejarLogo(e) {
     const archivo = e.target.files?.[0];
     if (!archivo) return;
 
-    // Validar que sea imagen y no muy pesada (máx 500 KB para no saturar)
     if (!archivo.type.startsWith("image/")) {
       setError("El logo debe ser una imagen (PNG o JPG).");
       return;
     }
-    if (archivo.size > 500 * 1024) {
-      setError("El logo es muy pesado. Usa una imagen de menos de 500 KB.");
+    // Aceptamos hasta 5 MB de entrada, porque igual lo vamos a reducir
+    if (archivo.size > 5 * 1024 * 1024) {
+      setError("El logo es muy pesado. Usa una imagen de menos de 5 MB.");
       return;
     }
 
     const lector = new FileReader();
     lector.onload = () => {
-      actualizar("logo", lector.result);
-      setError("");
+      // Reducimos la imagen usando un canvas: máximo 400px de lado
+      const img = new Image();
+      img.onload = () => {
+        const maxLado = 400;
+        let { width, height } = img;
+        if (width > maxLado || height > maxLado) {
+          if (width > height) {
+            height = Math.round((height * maxLado) / width);
+            width = maxLado;
+          } else {
+            width = Math.round((width * maxLado) / height);
+            height = maxLado;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        // Guardamos como JPEG con calidad 0.82 (buen balance peso/calidad)
+        const reducido = canvas.toDataURL("image/jpeg", 0.82);
+        actualizar("logo", reducido);
+        setError("");
+      };
+      img.onerror = () => setError("No pudimos procesar esa imagen. Prueba con otra.");
+      img.src = lector.result;
     };
     lector.readAsDataURL(archivo);
   }
