@@ -20,9 +20,10 @@ export function imprimirFactura(factura) {
   const items = factura.items || [];
 
   // Logo: si el negocio subió uno, lo mostramos; si no, mostramos el nombre grande
+   const nombreHtml = `<div style="font-size:20px; font-weight:800; color:#128C6E; margin-top:6px;">${factura.negocio_nombre || "Mi Negocio"}</div>`;
   const logoHtml = factura.negocio_logo
-    ? `<img src="${factura.negocio_logo}" alt="Logo" style="max-height:70px; max-width:180px; object-fit:contain;" />`
-    : `<div style="font-size:26px; font-weight:800; color:#128C6E;">${factura.negocio_nombre || "Mi Negocio"}</div>`;
+    ? `<img src="${factura.negocio_logo}" alt="Logo" style="max-height:70px; max-width:180px; object-fit:contain; display:block;" />${nombreHtml}`
+    : nombreHtml;
 
   // Datos de contacto del negocio (solo los que existan)
   const datosNegocio = [];
