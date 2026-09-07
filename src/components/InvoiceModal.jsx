@@ -208,7 +208,7 @@ export default function InvoiceModal({ negocioId, onCerrar, onGuardado }) {
                     <input
                       type="number"
                       min="0.01"
-                      step="1"
+                      step="0.01"
                       value={item.cantidad}
                       onChange={(e) => actualizarItem(indice, "cantidad", e.target.value)}
                       placeholder="Cantidad"
