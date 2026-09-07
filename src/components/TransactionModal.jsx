@@ -4,6 +4,8 @@ import { api } from "../api.js";
 export default function TransactionModal({ negocioId, tipo, onCerrar, onGuardado }) {
   const [monto, setMonto] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [categoriaId, setCategoriaId] = useState("");
+  const [categorias, setCategorias] = useState([]);
   const [error, setError] = useState("");
   const [guardando, setGuardando] = useState(false);
   const primerCampoRef = useRef(null);
@@ -11,6 +13,13 @@ export default function TransactionModal({ negocioId, tipo, onCerrar, onGuardado
   useEffect(() => {
     primerCampoRef.current?.focus();
   }, []);
+
+  // Cargar las categorías del tipo correcto (ingreso o gasto)
+  useEffect(() => {
+    api.listarCategorias(negocioId, tipo)
+      .then(setCategorias)
+      .catch(() => setCategorias([]));
+  }, [negocioId, tipo]);
 
   function manejarTecla(e) {
     if (e.key === "Escape") onCerrar();
@@ -36,6 +45,7 @@ export default function TransactionModal({ negocioId, tipo, onCerrar, onGuardado
         tipo,
         monto: montoNumero,
         descripcion: descripcion.trim(),
+        categoria_id: categoriaId || null,
       });
       onGuardado();
     } catch (err) {
@@ -152,6 +162,31 @@ export default function TransactionModal({ negocioId, tipo, onCerrar, onGuardado
                 fontSize: 15,
               }}
             />
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <label htmlFor="categoria" style={{ fontSize: 13, fontWeight: 500, color: "var(--text-secondary)" }}>
+              Categoría
+            </label>
+            <select
+              id="categoria"
+              value={categoriaId}
+              onChange={(e) => setCategoriaId(e.target.value)}
+              style={{
+                height: 46,
+                borderRadius: "var(--radius-sm)",
+                border: "1px solid var(--border)",
+                padding: "0 14px",
+                fontSize: 15,
+                background: "var(--surface-0)",
+                color: "var(--text)",
+              }}
+            >
+              <option value="">Sin categoría</option>
+              {categorias.map((c) => (
+                <option key={c.id} value={c.id}>{c.nombre}</option>
+              ))}
+            </select>
           </div>
 
           {error && (
