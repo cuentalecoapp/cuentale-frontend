@@ -47,6 +47,11 @@ export const api = {
 
   transacciones: (negocioId) => peticion(`/negocios/${negocioId}/transacciones`),
 
+  listarCategorias: (negocioId, tipo) =>
+    peticion(`/negocios/${negocioId}/categorias${tipo ? `?tipo=${tipo}` : ""}`),
+  crearCategoria: (negocioId, datos) =>
+    peticion(`/negocios/${negocioId}/categorias`, { method: "POST", body: JSON.stringify(datos) }),
+
   crearTransaccion: async (negocioId, datos) => {
     // Sin internet: no se pierde el movimiento, se guarda en el propio navegador
     // para mandarlo en cuanto vuelva la conexión.
