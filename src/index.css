@@ -303,3 +303,31 @@ body.tema-oscuro {
 body.tema-oscuro {
   background-color: #141210;
 }
+
+/* Las casillas de texto (donde se escribe) usaban el mismo color que la tarjeta
+   que las rodea, apoyándose en una sombra sutil para diferenciarse — pero esa
+   sombra casi no se nota sobre fondos oscuros. Aquí les damos un fondo un
+   escalón más claro y un borde visible, para que siempre se note dónde escribir,
+   sin importar qué página o componente las haya creado. */
+body.tema-oscuro input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+body.tema-oscuro select,
+body.tema-oscuro textarea {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border-strong) !important;
+  color: var(--text) !important;
+}
+
+body.tema-oscuro input::placeholder,
+body.tema-oscuro textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Cuando una casilla recibe el foco (el usuario está escribiendo ahí),
+   resaltamos el borde en el color de marca para que se sepa exactamente
+   dónde está escribiendo. */
+body.tema-oscuro input:focus,
+body.tema-oscuro select:focus,
+body.tema-oscuro textarea:focus {
+  border-color: var(--brand) !important;
+  outline: none;
+}
