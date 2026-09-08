@@ -27,9 +27,9 @@ const PERIODOS = [
 ];
 
 const COLORES = {
-  bien: { fondo: "#E8F7F1", borde: "#128C6E", texto: "#0B5943", icono: "ti-circle-check" },
-  ajustado: { fondo: "#FFF6E5", borde: "#E8A33D", texto: "#7a4a00", icono: "ti-alert-triangle" },
-  alerta: { fondo: "#FDEEEE", borde: "#E24C4C", texto: "#8a2020", icono: "ti-alert-circle" },
+  bien: { fondo: "#E8F7F1", borde: "#128C6E", texto: "#0B5943", icono: "ti-circle-check", emoji: "🟢" },
+  ajustado: { fondo: "#FFF6E5", borde: "#E8A33D", texto: "#7a4a00", icono: "ti-alert-triangle", emoji: "🟡" },
+  alerta: { fondo: "#FDEEEE", borde: "#E24C4C", texto: "#8a2020", icono: "ti-alert-circle", emoji: "🔴" },
 };
 
 export default function FlujoCaja({ negocioId }) {
@@ -72,7 +72,7 @@ export default function FlujoCaja({ negocioId }) {
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <h2 style={{ fontSize: 15, fontWeight: 700, margin: 0, color: color.texto }}>
-          ¿Cómo vas para {periodo === "30" ? "los próximos 30 días" : periodo === "proximo" ? "el próximo mes" : "fin de mes"}?
+          {color.emoji} ¿Cómo vas para {periodo === "30" ? "los próximos 30 días" : periodo === "proximo" ? "el próximo mes" : "fin de mes"}?
         </h2>
         <i className={`ti ${color.icono}`} style={{ fontSize: 22, color: color.borde }} />
       </div>
@@ -132,7 +132,24 @@ export default function FlujoCaja({ negocioId }) {
             }}
           >
             {datos.mensaje}
+            {datos.porque && (
+              <div style={{ marginTop: 6, fontWeight: 400, opacity: 0.9 }}>{datos.porque}</div>
+            )}
           </div>
+
+          {datos.comparacion && (
+            <div
+              style={{
+                marginTop: 8,
+                fontSize: 12.5,
+                color: "var(--text-secondary)",
+                fontWeight: 500,
+                textAlign: "center",
+              }}
+            >
+              {datos.comparacion}
+            </div>
+          )}
         </>
       ) : null}
     </div>
