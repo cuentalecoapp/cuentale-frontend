@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "./api.js";
 import Login from "./pages/Login.jsx";
+import RestablecerPassword from "./pages/RestablecerPassword.jsx";
 import Onboarding from "./pages/Onboarding.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Cuentas from "./pages/Cuentas.jsx";
@@ -169,6 +170,21 @@ export default function App() {
       })
       .finally(() => setVerificando(false));
   }, [autenticado]);
+
+  // Si el usuario llegó desde el enlace del correo de recuperación, la URL trae
+  // algo como "?resetToken=abc123" — en ese caso mostramos esa pantalla sin importar
+  // si hay o no una sesión iniciada.
+  const resetToken = new URLSearchParams(window.location.search).get("resetToken");
+  if (resetToken) {
+    return (
+      <RestablecerPassword
+        token={resetToken}
+        onListo={() => {
+          window.location.href = window.location.origin + window.location.pathname;
+        }}
+      />
+    );
+  }
 
   if (verificando) {
     return (
