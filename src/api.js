@@ -33,6 +33,12 @@ export const api = {
   login: (correo, password) =>
     peticion("/auth/login", { method: "POST", body: JSON.stringify({ correo, password }) }),
 
+  olvidePassword: (correo) =>
+    peticion("/auth/olvide-password", { method: "POST", body: JSON.stringify({ correo }) }),
+
+  restablecerPassword: (token, password) =>
+    peticion("/auth/restablecer-password", { method: "POST", body: JSON.stringify({ token, password }) }),
+
   listarNegocios: () => peticion("/negocios"),
 
   perfilNegocio: (negocioId) => peticion(`/negocios/${negocioId}/perfil`),
