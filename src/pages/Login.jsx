@@ -4,7 +4,7 @@ import { SimboloCuentale } from "../components/Logo.jsx";
 import fondoLogin from "../assets/login-fondo.jpg";
 
 export default function Login({ onEntrar }) {
-  const [modo, setModo] = useState("login"); // "login" | "registro"
+  const [modo, setModo] = useState("login"); // "login" | "registro" | "recuperar"
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +13,22 @@ export default function Login({ onEntrar }) {
   const [verPassword, setVerPassword] = useState(false); // mostrar/ocultar
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
+  const [mensajeRecuperacion, setMensajeRecuperacion] = useState("");
+
+  async function manejarRecuperacion(e) {
+    e.preventDefault();
+    setError("");
+    setMensajeRecuperacion("");
+    setCargando(true);
+    try {
+      const resultado = await api.olvidePassword(correo);
+      setMensajeRecuperacion(resultado.mensaje);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setCargando(false);
+    }
+  }
 
   // Valida que la contraseña sea fuerte (al menos 8 caracteres, con letra y número)
   function validarPassword(pass) {
@@ -59,14 +75,6 @@ export default function Login({ onEntrar }) {
     }
   }
 
-  function cambiarModo() {
-    setError("");
-    setPassword("");
-    setPassword2("");
-    setAceptaTerminos(false);
-    setModo(modo === "login" ? "registro" : "login");
-  }
-
   return (
     <div
       style={{
@@ -102,6 +110,44 @@ export default function Login({ onEntrar }) {
         </div>
       </div>
 
+      {modo === "recuperar" ? (
+        <form onSubmit={manejarRecuperacion} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <p style={{ fontSize: 13.5, color: "var(--text-secondary)", margin: "0 0 4px" }}>
+            Escribe el correo con el que te registraste. Te mandamos un enlace para poner una contraseña nueva.
+          </p>
+          <Campo label="Correo" value={correo} onChange={setCorreo} type="email" autoComplete="email" required />
+
+          {mensajeRecuperacion && (
+            <p role="status" style={{ color: "var(--brand)", fontSize: 13, margin: 0 }}>
+              {mensajeRecuperacion}
+            </p>
+          )}
+          {error && (
+            <p role="alert" style={{ color: "var(--gasto)", fontSize: 13, margin: 0 }}>
+              {error}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={cargando}
+            style={{
+              height: 52,
+              borderRadius: "var(--radius-md)",
+              border: "none",
+              background: "var(--naranja)",
+              color: "#fff",
+              fontSize: 16,
+              fontWeight: 800,
+              marginTop: 8,
+              boxShadow: "0 6px 18px rgba(255,106,43,0.45)",
+              opacity: cargando ? 0.7 : 1,
+            }}
+          >
+            {cargando ? "Enviando..." : "Enviar enlace de recuperación"}
+          </button>
+        </form>
+      ) : (
       <form onSubmit={manejarEnvio} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {modo === "registro" && (
           <Campo label="Tu nombre" value={nombre} onChange={setNombre} type="text" autoComplete="name" required />
@@ -196,9 +242,27 @@ export default function Login({ onEntrar }) {
           {cargando ? "Un momento..." : modo === "login" ? "Entrar" : "Crear cuenta"}
         </button>
       </form>
+      )}
+
+      {modo === "login" && (
+        <button
+          onClick={() => {
+            setError("");
+            setMensajeRecuperacion("");
+            setModo("recuperar");
+          }}
+          style={{ background: "none", border: "none", color: "var(--text-secondary)", fontSize: 13, marginTop: 12, textAlign: "center" }}
+        >
+          ¿Olvidaste tu contraseña?
+        </button>
+      )}
 
       <button
-        onClick={cambiarModo}
+        onClick={() => {
+          setError("");
+          setMensajeRecuperacion("");
+          setModo(modo === "login" ? "registro" : "login");
+        }}
         style={{
           background: "none",
           border: "none",
@@ -209,7 +273,7 @@ export default function Login({ onEntrar }) {
           textAlign: "center",
         }}
       >
-        {modo === "login" ? "¿No tienes cuenta? Crear una" : "¿Ya tienes cuenta? Entrar"}
+        {modo === "registro" ? "¿Ya tienes cuenta? Entrar" : modo === "recuperar" ? "Volver a iniciar sesión" : "¿No tienes cuenta? Crear una"}
       </button>
       </div>
     </div>
